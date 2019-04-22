@@ -65,4 +65,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap'
 gem 'jquery-rails'
 
-gem "custom_error_message", :path => "../custom-err-msg/"
+gem "better_error_message", :path => "../better_error_msg/"
