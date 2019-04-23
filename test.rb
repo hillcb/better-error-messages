@@ -6,5 +6,6 @@ puts u.errors.full_messages
 u = User.new
 u.name = "admin"
 u.email = "abc@example.com"
+u.email_confirmation = ""
 u.valid?
 puts u.errors.full_messages
