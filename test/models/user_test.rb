@@ -22,7 +22,7 @@ class UserTest < ActiveSupport::TestCase
     u.email_confirmation = ""
     u.valid?
     msgs = u.errors.full_messages
-    msg0 = "Email confirmation doesn't match Email, Email is case sensitive"
+    msg0 = "Email confirmation doesn't match Email(Email is case sensitive)"
   end
   test "uniqueness msg" do
     u = User.find_or_create_by(name: "m", email: "test@gmail.com")
@@ -30,7 +30,7 @@ class UserTest < ActiveSupport::TestCase
     u1 = User.create(name: "m", email: "test2@gmail.com")
     assert_equal false, u1.valid?
     msgs = u1.errors.full_messages
-    msg0 = "Name has already been taken, Name is case sensitive"
+    msg0 = "Name has already been taken(Name is case sensitive)"
     assert_equal msg0, msgs[0]
   end
   
@@ -39,7 +39,17 @@ class UserTest < ActiveSupport::TestCase
     u2 = User.create(name: "f", email: "test@gmail.com")
     assert_equal false, u2.valid?
     msgs = u2.errors.full_messages
-    msg0 = "Email has already been taken, Email isn't case sensitive"
+    msg0 = "Email has already been taken(Email isn't case sensitive)"
+    assert_equal msg0, msgs[0]
+  end
+  test "accoicated msg" do
+    u = User.find_or_create_by(name: "m", email: "test@gmail.com")
+    u2 = User.create(name: "m", email: "test2@gmail.com")
+    b = Blog.new
+    b.user = u2
+    assert_equal false, b.valid?
+    msgs = b.errors.full_messages
+    msg0 = "User is invalid, because Name has already been taken(Name is case sensitive)"
     assert_equal msg0, msgs[0]
   end
 end
