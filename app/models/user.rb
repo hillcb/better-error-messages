@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_many :blogs
     validates_inclusion_of :name, :in => %w( m f )
     validates_exclusion_of :name, :in => %w( admin administrator )
     validates_uniqueness_of :name, :case_sensitive => true
